@@ -161,7 +161,7 @@ public class MenuUser extends javax.swing.JFrame {
         role.setText("ROLE");
         getContentPane().add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, -1, 30));
 
-        role_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "kasir", "owner" }));
+        role_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "kasir" }));
         role_box.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 role_boxActionPerformed(evt);
