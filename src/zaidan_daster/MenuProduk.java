@@ -55,7 +55,8 @@ public class MenuProduk extends javax.swing.JFrame {
             this.stat = k.getCon().prepareStatement("SELECT * FROM user WHERE role = 'admin'");
             this.rs = this.stat.executeQuery();
             while(rs.next()){
-                user_box.addItem(rs.getString("id_user"));
+                user_box.addItem(rs.getString("id_user")+":"
+                +rs.getString("nama_user"));
             }
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -280,6 +281,8 @@ public class MenuProduk extends javax.swing.JFrame {
 
     private void tombol_createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombol_createActionPerformed
         // TODO add your handling code here:
+        String [] split = user_box.getSelectedItem().toString().split(":");
+        String iduser = split[0];
         try{
             this.stat = k.getCon().prepareStatement("INSERT INTO produk VALUES (?, ?, ?, ?, ?, ?)");
             stat.setInt(1, 000);
@@ -287,7 +290,7 @@ public class MenuProduk extends javax.swing.JFrame {
             stat.setString(3, jenis_box.getSelectedItem().toString());
             stat.setString(4, txt_harga.getText());
             stat.setString(5, ukuran_box.getSelectedItem().toString());
-            stat.setString(6, user_box.getSelectedItem().toString());
+            stat.setString(6, iduser);
             stat.executeUpdate();
             refreshTable();
         }catch(Exception e){
@@ -297,13 +300,15 @@ public class MenuProduk extends javax.swing.JFrame {
 
     private void tombol_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombol_updateActionPerformed
         // TODO add your handling code here:
+        String [] split = user_box.getSelectedItem().toString().split(":");
+        String iduser = split[0];
         try{
             stat = k.getCon().prepareStatement("UPDATE produk SET nama_produk=?, jenis=?, harga=?, ukuran=?, id_user=? WHERE id_produk=?");
             stat.setString(1, txt_nama.getText());
             stat.setString(2, jenis_box.getSelectedItem().toString());
             stat.setString(3, txt_harga.getText());
             stat.setString(4, ukuran_box.getSelectedItem().toString());
-            stat.setString(5, user_box.getSelectedItem().toString());
+            stat.setString(5, iduser);
             stat.setString(6, txt_id.getText());
             stat.executeUpdate();
             refreshTable();

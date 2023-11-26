@@ -3,15 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/muthm/Documents/NetBeansProjects/ZAIDANDASTER/src/zaidan_daster/MenuTransaksi.java</file>
             <file>file:/C:/Users/muthm/Documents/NetBeansProjects/ZAIDANDASTER/src/zaidan_daster/MenuUser.java</file>
+            <file>file:/C:/Users/muthm/Documents/NetBeansProjects/ZAIDANDASTER/src/zaidan_daster/MenuTransaksi.java</file>
+            <file>file:/C:/Users/muthm/Documents/NetBeansProjects/ZAIDANDASTER/src/zaidan_daster/MenuAdmin.java</file>
             <file>file:/C:/Users/muthm/Documents/NetBeansProjects/ZAIDANDASTER/src/zaidan_daster/MenuProduk.java</file>
-            <file>file:/C:/Users/muthm/Documents/NetBeansProjects/ZAIDANDASTER/src/zaidan_daster/DataProduk.java</file>
             <file>file:/C:/Users/muthm/Documents/NetBeansProjects/ZAIDANDASTER/src/zaidan_daster/MenuPelanggan.java</file>
-            <file>file:/C:/Users/muthm/Documents/NetBeansProjects/ZAIDANDASTER/src/zaidan_daster/DataPelanggan.java</file>
-            <file>file:/C:/Users/muthm/Documents/NetBeansProjects/ZAIDANDASTER/src/zaidan_daster/DataTransaksi.java</file>
+            <file>file:/C:/Users/muthm/Documents/NetBeansProjects/ZAIDANDASTER/src/zaidan_daster/MenuKasir.java</file>
             <file>file:/C:/Users/muthm/Documents/NetBeansProjects/ZAIDANDASTER/src/zaidan_daster/MenuLogin.java</file>
-            <file>file:/C:/Users/muthm/Documents/NetBeansProjects/ZAIDANDASTER/src/zaidan_daster/DataUser.java</file>
         </group>
     </open-files>
 </project-private>

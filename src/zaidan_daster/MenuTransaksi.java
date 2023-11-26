@@ -71,7 +71,8 @@ public class MenuTransaksi extends javax.swing.JFrame {
             this.stat = k.getCon().prepareStatement("SELECT * FROM user WHERE role = 'kasir'");
             this.rs = this.stat.executeQuery();
             while(rs.next()){
-                user_box.addItem(rs.getString("id_user"));
+                user_box.addItem(rs.getString("id_user")+":"
+                +rs.getString("nama_user"));
             }
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -83,7 +84,8 @@ public class MenuTransaksi extends javax.swing.JFrame {
             this.stat = k.getCon().prepareStatement("SELECT * FROM pelanggan");
             this.rs = this.stat.executeQuery();
             while(rs.next()){
-                pelanggan_box.addItem(rs.getString("id_pelanggan"));
+                pelanggan_box.addItem(rs.getString("id_pelanggan")+":"
+                +rs.getString("nama_pelanggan"));
             }
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -154,29 +156,29 @@ public class MenuTransaksi extends javax.swing.JFrame {
         transaksi.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         transaksi.setText("TANGGAL TRANSAKSI");
         jPanel1.add(transaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 30));
-        jPanel1.add(tgl_transaksi_date, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 180, 30));
+        jPanel1.add(tgl_transaksi_date, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 190, 30));
 
         pelanggan.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         pelanggan.setText("PELANGGAN");
         jPanel1.add(pelanggan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, 30));
 
-        jPanel1.add(pelanggan_box, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 180, 30));
+        jPanel1.add(pelanggan_box, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 190, 30));
 
         produk.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         produk.setText("PRODUK");
         jPanel1.add(produk, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, 30));
 
-        jPanel1.add(produk_box, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 180, 30));
+        jPanel1.add(produk_box, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 190, 30));
 
         bataswaktu.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         bataswaktu.setText("BATAS WAKTU");
-        jPanel1.add(bataswaktu, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, -1, 30));
-        jPanel1.add(tgl_bataswaktu_date, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, 170, 30));
+        jPanel1.add(bataswaktu, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, -1, 30));
+        jPanel1.add(tgl_bataswaktu_date, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, 160, 30));
 
         quantity.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         quantity.setText("QUANTITY");
-        jPanel1.add(quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, -1, 30));
-        jPanel1.add(txt_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 50, 170, 30));
+        jPanel1.add(quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, -1, 30));
+        jPanel1.add(txt_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, 160, 30));
 
         tombol_create.setFont(new java.awt.Font("Segoe UI Black", 1, 10)); // NOI18N
         tombol_create.setText("CREATE");
@@ -254,7 +256,7 @@ public class MenuTransaksi extends javax.swing.JFrame {
         user.setText("ID USER");
         getContentPane().add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, -1, 30));
 
-        getContentPane().add(user_box, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 120, 30));
+        getContentPane().add(user_box, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 140, 30));
 
         tombol_view.setBackground(new java.awt.Color(102, 0, 0));
         tombol_view.setFont(new java.awt.Font("Segoe UI Black", 0, 10)); // NOI18N
@@ -309,7 +311,11 @@ public class MenuTransaksi extends javax.swing.JFrame {
         DateFormat dateFormat2 = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
         inv = dateFormat.format(d);
         String [] split = produk_box.getSelectedItem().toString().split(":");
+        String [] split1 = pelanggan_box.getSelectedItem().toString().split(":");
+        String [] split2 = user_box.getSelectedItem().toString().split(":");
         String produk = split[0];
+        String idpelanggan = split1[0];
+        String userid = split2[0];
         int total = Integer.parseInt(txt_quantity.getText()) * Integer.parseInt(split[2]);
         
         try{
@@ -324,8 +330,8 @@ public class MenuTransaksi extends javax.swing.JFrame {
             stat.setString(8, pembayaran_box.getSelectedItem().toString());
             stat.setString(9, inv);
             stat.setString(10, produk);
-            stat.setString(11, pelanggan_box.getSelectedItem().toString());
-            stat.setString(12, user_box.getSelectedItem().toString());
+            stat.setString(11, idpelanggan);
+            stat.setString(12, userid);
             stat.executeUpdate();
             refreshTable();
         }catch (Exception e){
