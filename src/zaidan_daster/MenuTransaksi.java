@@ -291,13 +291,23 @@ public class MenuTransaksi extends javax.swing.JFrame {
         // TODO add your handling code here:
         DateFormat dateFormat2 = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
         try{
-            this.stat = k.getCon().prepareStatement("UPDATE transaksi SET tgl_bayar=?, status_transaksi=?, status_bayar=? WHERE kode_invoice=?");
-            stat.setString(1, dateFormat2.format(tgl_bayar_date.getDate()));
-            stat.setString(2, transaksi_box.getSelectedItem().toString());
-            stat.setString(3, pembayaran_box.getSelectedItem().toString());
-            stat.setString(4, txt_kode.getText());
-            stat.executeUpdate();
-            refreshTable();
+            String tglBayar = dateFormat2.format(tgl_bayar_date.getDate());
+            String statusTransaksi = transaksi_box.getSelectedItem().toString();
+            String statusBayar = pembayaran_box.getSelectedItem().toString();
+            String kodeInvoice = txt_kode.getText();
+            
+            if(tglBayar.isEmpty()||statusTransaksi.isEmpty()||statusBayar.isEmpty()||kodeInvoice.isEmpty()){
+                JOptionPane.showMessageDialog(rootPane, "Masukkan dengan benar!", "Error", 1);
+            }else{
+                stat = k.getCon().prepareStatement("UPDATE transaksi SET tgl_bayar=?, status_transaksi=?, status_bayar=? WHERE kode_invoice=?");
+                stat.setString(1, tglBayar);
+                stat.setString(2, statusTransaksi);
+                stat.setString(3, statusBayar);
+                stat.setString(4, kodeInvoice);
+                stat.executeUpdate();
+                refreshTable();
+                JOptionPane.showMessageDialog(null, "Data berhasil diupdate!");
+            }
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
@@ -316,24 +326,33 @@ public class MenuTransaksi extends javax.swing.JFrame {
         String produk = split[0];
         String idpelanggan = split1[0];
         String userid = split2[0];
-        int total = Integer.parseInt(txt_quantity.getText()) * Integer.parseInt(split[2]);
+//        int total = Integer.parseInt(txt_quantity.getText()) * Integer.parseInt(split[2]);
         
         try{
-            this.stat = k.getCon().prepareStatement("INSERT INTO transaksi VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            stat.setInt(1, 0000);
-            stat.setString(2, dateFormat2.format(tgl_transaksi_date.getDate()));
-            stat.setString(3, dateFormat2.format(tgl_bataswaktu_date.getDate()));
-            stat.setString(4, txt_quantity.getText());
-            stat.setInt(5, total);
-            stat.setString(6, transaksi_box.getSelectedItem().toString());
-            stat.setString(7, null);
-            stat.setString(8, pembayaran_box.getSelectedItem().toString());
-            stat.setString(9, inv);
-            stat.setString(10, produk);
-            stat.setString(11, idpelanggan);
-            stat.setString(12, userid);
-            stat.executeUpdate();
-            refreshTable();
+            if (txt_quantity.getText().isEmpty()||split[2].isEmpty()){
+                JOptionPane.showMessageDialog(rootPane, "Masukkan dengan benar!", "Error", 1);
+            } else {
+                int quantity = Integer.parseInt(txt_quantity.getText());
+                int productPrice = Integer.parseInt(split[2]);
+                int total = quantity * productPrice;
+            
+                this.stat = k.getCon().prepareStatement("INSERT INTO transaksi VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                stat.setInt(1, 0000);
+                stat.setString(2, dateFormat2.format(tgl_transaksi_date.getDate()));
+                stat.setString(3, dateFormat2.format(tgl_bataswaktu_date.getDate()));
+                stat.setString(4, txt_quantity.getText());
+                stat.setInt(5, total);
+                stat.setString(6, transaksi_box.getSelectedItem().toString());
+                stat.setString(7, null);
+                stat.setString(8, pembayaran_box.getSelectedItem().toString());
+                stat.setString(9, inv);
+                stat.setString(10, produk);
+                stat.setString(11, idpelanggan);
+                stat.setString(12, userid);
+                stat.executeUpdate();
+                refreshTable();
+                JOptionPane.showMessageDialog(null, "Data berhasil ditambah!");
+            }
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }

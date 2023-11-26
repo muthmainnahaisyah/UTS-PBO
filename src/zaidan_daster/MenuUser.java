@@ -201,14 +201,24 @@ public class MenuUser extends javax.swing.JFrame {
     private void tombol_createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombol_createActionPerformed
         // TODO add your handling code here:
         try{
-            this.stat = k.getCon().prepareStatement("INSERT INTO user VALUES (?, ?, ?, ?, ?)");
-            stat.setInt(1, 0);
-            stat.setString(2, txt_nama.getText());
-            stat.setString(3, txt_username.getText());
-            stat.setString(4, txt_password.getText());
-            stat.setString(5, role_box.getSelectedItem().toString());
-            stat.executeUpdate();
-            refreshTable();
+            String nama = txt_nama.getText();
+            String username = txt_username.getText();
+            String password = txt_password.getText();
+            String role = role_box.getSelectedItem().toString();
+            
+            if(nama.isEmpty()||username.isEmpty()||password.isEmpty()||role.isEmpty()){
+                JOptionPane.showMessageDialog(rootPane, "Masukkan dengan benar!", "Error", 1);
+            }else{
+                this.stat = k.getCon().prepareStatement("INSERT INTO user VALUES (?, ?, ?, ?, ?)");
+                stat.setInt(1, 0);
+                stat.setString(2, nama);
+                stat.setString(3, username);
+                stat.setString(4, password);
+                stat.setString(5, role);
+                stat.executeUpdate();
+                refreshTable();
+                JOptionPane.showMessageDialog(null, "Data berhasil ditambah!");
+            }
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
@@ -217,14 +227,25 @@ public class MenuUser extends javax.swing.JFrame {
     private void tombol_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombol_updateActionPerformed
         // TODO add your handling code here:
         try{
-            this.stat = k.getCon().prepareStatement("UPDATE user set nama_user=?, username=?, password=?, role=? WHERE id_user=?");
-            stat.setString(1, txt_nama.getText());
-            stat.setString(2, txt_username.getText());
-            stat.setString(3, txt_password.getText());
-            stat.setString(4, role_box.getSelectedItem().toString());
-            stat.setString(5, txt_id.getText());
-            stat.executeUpdate();
-            refreshTable();
+            String nama = txt_nama.getText();
+            String username = txt_username.getText();
+            String password = txt_password.getText();
+            String role = role_box.getSelectedItem().toString();
+            String id = txt_id.getText();
+            
+            if(nama.isEmpty()||username.isEmpty()||password.isEmpty()||role.isEmpty()||id.isEmpty()){
+                JOptionPane.showMessageDialog(rootPane, "Masukkan dengan benar!", "Error", 1);
+            }else{
+                this.stat = k.getCon().prepareStatement("UPDATE user SET nama_user=?, username=?, password=?, role=? WHERE id_user=?");
+                stat.setString(1, nama);
+                stat.setString(2, username);
+                stat.setString(3, password);
+                stat.setString(4, role);
+                stat.setString(5, id);
+                stat.executeUpdate();
+                refreshTable();
+                JOptionPane.showMessageDialog(null, "Data berhasil diupdate!");
+            }
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }

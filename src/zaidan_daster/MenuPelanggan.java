@@ -248,17 +248,26 @@ public class MenuPelanggan extends javax.swing.JFrame {
 
     private void tombol_createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombol_createActionPerformed
         // TODO add your handling code here:
-        String [] split = user_box.getSelectedItem().toString().split(":");
-        String iduser = split[0];
         try{
-            this.stat = k.getCon().prepareStatement("INSERT INTO pelanggan VALUES (?, ?, ?, ?, ?)");
-            stat.setInt(1, 000);
-            stat.setString(2, txt_nama.getText());
-            stat.setString(3, txt_alamat.getText());
-            stat.setString(4, txt_nomor.getText());
-            stat.setString(5, iduser);
-            stat.executeUpdate();
-            refreshTable();
+            String nama = txt_nama.getText();
+            String alamat = txt_alamat.getText();
+            String nomor = txt_nomor.getText();
+            String [] split = user_box.getSelectedItem().toString().split(":");
+            String iduser = split[0];
+            
+            if (nama.isEmpty()||alamat.isEmpty()||nomor.isEmpty()||iduser == null||iduser.isEmpty()){
+                JOptionPane.showMessageDialog(rootPane, "Masukkan dengan benar!", "Error", 1);
+            }else{
+                this.stat = k.getCon().prepareStatement("INSERT INTO pelanggan VALUES (?, ?, ?, ?, ?)");
+                stat.setInt(1, 0); // Sebaiknya menggunakan nilai default atau auto-increment untuk kolom ID
+                stat.setString(2, nama);
+                stat.setString(3, alamat);
+                stat.setString(4, nomor);
+                stat.setString(5, iduser);
+                stat.executeUpdate();
+                refreshTable();
+                JOptionPane.showMessageDialog(null, "Data berhasil ditambah!");
+            }
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
@@ -266,17 +275,27 @@ public class MenuPelanggan extends javax.swing.JFrame {
 
     private void tombol_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombol_updateActionPerformed
         // TODO add your handling code here:
-        String [] split = user_box.getSelectedItem().toString().split(":");
-        String iduser = split[0];
         try{
-            stat = k.getCon().prepareStatement("UPDATE pelanggan SET nama_pelanggan=?, alamat=?, nomor_telpon=?, id_user=? WHERE id_pelanggan=?");
-            stat.setString(1, txt_nama.getText());
-            stat.setString(2, txt_alamat.getText());
-            stat.setString(3, txt_nomor.getText());
-            stat.setString(4, iduser);
-            stat.setString(5, txt_id.getText());
-            stat.executeUpdate();
-            refreshTable();
+            String nama = txt_nama.getText();
+            String alamat = txt_alamat.getText();
+            String nomor = txt_nomor.getText();
+            String [] split = user_box.getSelectedItem().toString().split(":");
+            String iduser = split[0];
+            String idPelanggan = txt_id.getText();
+            
+            if (nama.isEmpty()||alamat.isEmpty()||nomor.isEmpty()||iduser == null||iduser.isEmpty()||idPelanggan.isEmpty()){
+                JOptionPane.showMessageDialog(rootPane, "Masukkan dengan benar!", "Error", 1);
+            }else{
+                stat = k.getCon().prepareStatement("UPDATE pelanggan SET nama_pelanggan=?, alamat=?, nomor_telpon=?, id_user=? WHERE id_pelanggan=?");
+                stat.setString(1, nama);
+                stat.setString(2, alamat);
+                stat.setString(3, nomor);
+                stat.setString(4, iduser);
+                stat.setString(5, idPelanggan);
+                stat.executeUpdate();
+                refreshTable();
+                JOptionPane.showMessageDialog(null, "Data berhasil diupdate!");
+            }
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }

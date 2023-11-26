@@ -280,19 +280,29 @@ public class MenuProduk extends javax.swing.JFrame {
     }//GEN-LAST:event_ukuran_boxActionPerformed
 
     private void tombol_createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombol_createActionPerformed
-        // TODO add your handling code here:
-        String [] split = user_box.getSelectedItem().toString().split(":");
-        String iduser = split[0];
+        // TODO add your handling code here:    
         try{
-            this.stat = k.getCon().prepareStatement("INSERT INTO produk VALUES (?, ?, ?, ?, ?, ?)");
-            stat.setInt(1, 000);
-            stat.setString(2, txt_nama.getText());
-            stat.setString(3, jenis_box.getSelectedItem().toString());
-            stat.setString(4, txt_harga.getText());
-            stat.setString(5, ukuran_box.getSelectedItem().toString());
-            stat.setString(6, iduser);
-            stat.executeUpdate();
-            refreshTable();
+            String nama = txt_nama.getText();
+            String jenis = jenis_box.getSelectedItem().toString();
+            String harga = txt_harga.getText();
+            String ukuran = ukuran_box.getSelectedItem().toString();
+            String [] split = user_box.getSelectedItem().toString().split(":");
+            String iduser = split[0];
+            
+            if(nama.isEmpty()||jenis.isEmpty()||harga.isEmpty()||ukuran.isEmpty()||iduser==null||iduser.isEmpty()){
+                JOptionPane.showMessageDialog(rootPane, "Masukkan dengan benar!", "Error", 1);
+            }else{
+                this.stat = k.getCon().prepareStatement("INSERT INTO produk VALUES (?, ?, ?, ?, ?, ?)");
+                stat.setInt(1, 000);
+                stat.setString(2, nama);
+                stat.setString(3, jenis);
+                stat.setString(4, harga);
+                stat.setString(5, ukuran);
+                stat.setString(6, iduser);
+                stat.executeUpdate();
+                refreshTable();
+                JOptionPane.showMessageDialog(null, "Data berhasil ditambah!");
+            }
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
@@ -300,18 +310,29 @@ public class MenuProduk extends javax.swing.JFrame {
 
     private void tombol_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombol_updateActionPerformed
         // TODO add your handling code here:
-        String [] split = user_box.getSelectedItem().toString().split(":");
-        String iduser = split[0];
         try{
-            stat = k.getCon().prepareStatement("UPDATE produk SET nama_produk=?, jenis=?, harga=?, ukuran=?, id_user=? WHERE id_produk=?");
-            stat.setString(1, txt_nama.getText());
-            stat.setString(2, jenis_box.getSelectedItem().toString());
-            stat.setString(3, txt_harga.getText());
-            stat.setString(4, ukuran_box.getSelectedItem().toString());
-            stat.setString(5, iduser);
-            stat.setString(6, txt_id.getText());
-            stat.executeUpdate();
-            refreshTable();
+            String nama = txt_nama.getText();
+            String jenis = jenis_box.getSelectedItem().toString();
+            String harga = txt_harga.getText();
+            String ukuran = ukuran_box.getSelectedItem().toString();
+            String idProduk = txt_id.getText();
+            String [] split = user_box.getSelectedItem().toString().split(":");
+            String iduser = split[0];
+            
+            if (nama.isEmpty()||jenis.isEmpty()||harga.isEmpty()||ukuran.isEmpty()||iduser == null||iduser.isEmpty()||idProduk.isEmpty()){
+                JOptionPane.showMessageDialog(rootPane, "Masukkan dengan benar!", "Error", 1);
+            }else{
+                stat = k.getCon().prepareStatement("UPDATE produk SET nama_produk=?, jenis=?, harga=?, ukuran=?, id_user=? WHERE id_produk=?");
+                stat.setString(1, nama);
+                stat.setString(2, jenis);
+                stat.setString(3, harga);
+                stat.setString(4, ukuran);
+                stat.setString(5, iduser);
+                stat.setString(6, idProduk);
+                stat.executeUpdate();
+                refreshTable();
+                JOptionPane.showMessageDialog(null, "Data berhasil diupdate!");
+            }
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
